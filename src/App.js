@@ -1,15 +1,19 @@
 import './App.css';
 import {useState} from "react"
 import axios from 'axios'
-import {BrowserRouter as Router, Link, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { Home } from './pages/Home';
 import { Profile } from './pages/Profile';
 import { NavBar } from './components/NavBar';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 
-function App() {
-  const client = new QueryClient()
-
+//query is R from CRUD, mutation is CUD from CRUD
+function App() {//query is getting data, mutation is changing data
+  const client = new QueryClient({defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    }
+  }})
   
   return(
     <div className ="App">
