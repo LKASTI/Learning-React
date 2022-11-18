@@ -1,13 +1,11 @@
 import './App.css';
-
-
-//query is R from CRUD, mutation is CUD from CRUD
-function App() {//query is getting data, mutation is changing data
+import Form from './components/Form'
+function App() {
   
   
   return(
-    <div className ="App">
-      
+    <div className='App'>
+      <Form/>
     </div>
   )
 }
