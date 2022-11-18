@@ -6,10 +6,12 @@ function Form() {
    
   // specify the data we are retrieving is an object with 'yup.object'
   const schema = yup.object().shape({ 
-    userName: yup.string().min(5).max(15).required("must enter a username"),
-    email: yup.string().email().required("must enter a email"),
-    age: yup.number().positive().min(18, "must be at least 18 years of age").required("must enter an age"),
-    password: yup.string().min(4).max(20).required("must enter a password"),
+    userName: yup.string().required("must enter a username").min(5).max(15),
+    email: yup.string().required("must enter a email").email(),
+    age: yup.number().positive("must be a positive number").min(18, "must be at least 18 years of age").required("must enter an age"),
+    password: yup.string().required("must enter a password").min(8, "password must be at least 8 characters").max(15, "password must be at most 15 characters")
+                        .matches(/[\d, \d, \d]/, "password must contain at least 3 numbers")
+                        .matches(/\W+/, "password must contain at least one special character"),
     confirmPassword: yup.string().oneOf([yup.ref("password"), null], "passwords must match").required("must confirm password"),
   })
   //register is a function that retrieves input from a form
@@ -28,9 +30,9 @@ function Form() {
       <p>{errors.email?.message}</p>
       <input type="number" placeholder='age...'{...register("age")}/>
       <p>{errors.age?.message}</p>
-      <input type="password" placeholder='password...'{...register("password")}/>
+      <input type="text" placeholder='password...'{...register("password")}/>
       <p>{errors.password?.message}</p>
-      <input type="password" placeholder='confirm password...'{...register("confirmPassword")}/>
+      <input type="text" placeholder='confirm password...'{...register("confirmPassword")}/>
       <p>{errors.confirmPassword?.message}</p>
       <input type="submit"/>
     </form>
